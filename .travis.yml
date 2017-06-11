@@ -10,6 +10,8 @@ notifications:
 addons:
   code_climate:
     repo_token: 814d39d2092e7f3b870f9a455dad28295a4aa15e611472ecca5a6ae547a536f6
+  ssh_known_hosts:
+    - cullen.io
 
 before_script:
 - export DISPLAY=:99.0
