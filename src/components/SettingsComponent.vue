@@ -55,7 +55,7 @@
       return {
         idCounter:0,
         dataToggle: false,
-        modalTitle: "Welcome to a new game of Programming Wars!",
+        modalTitle: "Welcome to a New Game of Programming Wars!",
         localPlayers: [],
         newPlayer: '',
         gameStart: false,
