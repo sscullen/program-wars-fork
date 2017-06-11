@@ -30,11 +30,18 @@ script:
 after_success:
 - npm install -g codeclimate-test-reporter --save-dev
 - codeclimate-test-reporter < ./test/unit/coverage/lcov.info
-- openssl aes-256-cbc -K $encrypted_d5e0ba2980d8_key -iv $encrypted_d5e0ba2980d8_iv -in deploy_rsa.enc -out deploy_rsa -d
-- eval "$(ssh-agent -s)" #start the ssh agent
-- chmod 600 .travis/deploy_key.pem # this key should have push access
-- ssh-add .travis/deploy_key.pem
-- git remote add deploy  ssh://git@cullen.io/var/repo/programwars.git
-- git push deploy
 
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_d5e0ba2980d8_key -iv $encrypted_d5e0ba2980d8_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
 
+deploy:
+- provider: script
+  skip_cleanup: true
+  script:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 .travis/deploy_rsa
+  - ssh-add .travis/deploy_rsa
+  - git push production
+  on:
+    branch: master
